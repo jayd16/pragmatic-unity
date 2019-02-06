@@ -52,13 +52,13 @@ These DynamicRefs are YieldInstructions that will wait until the dependency is f
 ```
 IEnumerator Start()
 {
-	//this will yield until _myReference has a value to return
-	yield return _myReference;
+    //this will yield until _myReference has a value to return
+    yield return _myReference;
 
-	Log.Assert(_myReference.HasValue, "this will be ture");
-	
-	//The SomeType instance can be used now
-	_myReference.Value.SomeTypeMethod();
+    Log.Assert(_myReference.HasValue, "this will be ture");
+    
+    //The SomeType instance can be used now
+    _myReference.Value.SomeTypeMethod();
 }
 ```
 
@@ -70,23 +70,23 @@ A view model behavior can mark up setter and getter methods, and invalidation ev
 
 Example DataBinding Markup
 ```
-    [DataBinding("SomeBindingId")] public event Action OnStringUpdated = () => { };
+[DataBinding("SomeBindingId")] public event Action OnStringUpdated = () => { };
 
-    private AsyncRequest<string> _cachedBoundStringExample = new SimpleAsyncRequest<string>("default");
+private AsyncRequest<string> _cachedBoundStringExample = new SimpleAsyncRequest<string>("default");
 
-    [DataBinding("SomeBindingId")]
-    public AsyncRequest SetString(string val)
-    {
-        _cachedBoundStringExample = new SimpleAsyncRequest<string>(val);
-        OnStringUpdated();
-        return _cachedBoundStringExample;
-    }
+[DataBinding("SomeBindingId")]
+public AsyncRequest SetString(string val)
+{
+    _cachedBoundStringExample = new SimpleAsyncRequest<string>(val);
+    OnStringUpdated();
+    return _cachedBoundStringExample;
+}
 
-    [DataBinding("SomeBindingId")]
-    public AsyncRequest<string> GetString()
-    {
-        return _cachedBoundStringExample;
-    }
+[DataBinding("SomeBindingId")]
+public AsyncRequest<string> GetString()
+{
+    return _cachedBoundStringExample;
+}
 ```
 
 Here we can see two InputTexts bound to the same data through the generated DataBinding code.  

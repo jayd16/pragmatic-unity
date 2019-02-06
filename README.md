@@ -95,6 +95,7 @@ Notice that:
  - Each InputText has the <BindingId>DataBinder Behavior (In this case BoundStringDataBinder).
  - The InputText onEdit event is wired to the DataBinder.Set() method
  - The DataBinder.OnGet event is wired to the InputText.text field
+ - The InputTexts do **NOT** reference each other
 
  ![Bound Input Text Exmaple][bound_input_text_gif]
 

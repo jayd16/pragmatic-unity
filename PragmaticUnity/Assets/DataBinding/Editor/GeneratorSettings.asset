@@ -13,3 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Default: {fileID: 0}
   _generatedFilesPath: Assets/Example/Generated
+  _generateOnRecompile: 1

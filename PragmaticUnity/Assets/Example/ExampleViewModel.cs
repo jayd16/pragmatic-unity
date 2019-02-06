@@ -42,7 +42,6 @@ public class ExampleViewModel : MonoBehaviour
 
     #endregion
 
-
     #region Example Error Handling
 
     public AsyncRequest<string> GetError()

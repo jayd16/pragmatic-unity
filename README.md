@@ -14,7 +14,28 @@ The main design goal is to lean into the official Unity workflow.  We attempt to
 # Class Breakdown
 
 ## AsyncRequest
+Async Request is meant to add proper error and type checked results to asynchronous requests.
+This is meant as a compromise between Unity's coroutine system and async/await 
 
+Unlike base IEnumerators and Coroutines, AsyncRequests are designed to be awaited on by two or more coroutines without issue.  This allows a reduction in wasted work as well as a natural result caching system.
+
+Here we can see the base example of how to build asynchronous calls with properly typed results
+```
+    public AsyncRequest<int> ExampleGetInt()
+    {
+        return EnumeratingAsyncRequest<int>.Start(this, GetInt);
+    }
+
+    //example yielding coroutine
+    private IEnumerator GetInt(Action<int> result)
+    {
+
+        yield return new WaitForSeconds(1);
+        result(123);
+    }
+```
+
+Wrapping web and disk IO in a similar fashion is just as simple.
 
 ## Dynamic References
 
@@ -33,11 +54,11 @@ These DynamicRefs are YieldInstructions that will wait until the dependency is f
 IEnumerator Start()
 {
 	//this will yield until _myReference has a value to return
-    yield return _myReference;
-    
-    Log.Assert(_myReference.HasValue, "this will be ture");
-    
-    //The SomeType instance can be used now
-    _myReference.Value.SomeTypeMethod();
+	yield return _myReference;
+
+	Log.Assert(_myReference.HasValue, "this will be ture");
+	
+	//The SomeType instance can be used now
+	_myReference.Value.SomeTypeMethod();
 }
 ```

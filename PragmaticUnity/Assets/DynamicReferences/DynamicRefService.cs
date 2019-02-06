@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Com.Duffy.Logging;
+using UnityEngine.Assertions;
 
 namespace Com.Duffy.DynamicReferences
 {
     public static class DynamicRefService
     {
-   
+        
         private static readonly Dictionary<string, IDynamicRefTarget> _refsById = new Dictionary<string, IDynamicRefTarget>();
 
         private static readonly Dictionary<Type, List<IDynamicRefTarget>> _refsByType = new Dictionary<Type, List<IDynamicRefTarget>>();
@@ -16,7 +16,7 @@ namespace Com.Duffy.DynamicReferences
             IDynamicRefTarget dynamicRefTarget;
             if (_refsById.TryGetValue(id, out dynamicRefTarget))
             {
-                Log.Assert(dynamicRefTarget.Target is T, "Could not cast reference");
+                Assert.IsTrue(dynamicRefTarget.Target is T, "Could not cast reference");
                 referencedItem = (T)dynamicRefTarget.Target;
                 return true;
             }
@@ -30,14 +30,14 @@ namespace Com.Duffy.DynamicReferences
             List<IDynamicRefTarget> dynamicReferences;
             if (_refsByType.TryGetValue(typeof(T), out dynamicReferences))
             {
-                Log.Assert(dynamicReferences != null && dynamicReferences.Count <= 1, "Could not find DynamicRef {0}", typeof(T));
+                Assert.IsTrue(dynamicReferences != null && dynamicReferences.Count <= 1, $"Could not find DynamicRef {typeof(T)}");
 
-                if (dynamicReferences == null || dynamicReferences.Count < 1)
+                if (dynamicReferences.Count < 1)
                 {
                     referencedItem =  default(T);
                     return false;
                 }
-                Log.Assert(dynamicReferences[0].Target is T, "Could not cast reference");
+                Assert.IsTrue(dynamicReferences[0].Target is T, "Could not cast reference");
                 referencedItem = (T)dynamicReferences[0].Target;
                 return true;
             }

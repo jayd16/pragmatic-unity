@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using Com.Duffy.Logging;
 using UnityEngine;
 
 namespace Com.Duffy
 {
     /// <summary>
-    /// Async Request is meant to add proper error and type checking to asynchronous requests.
+    /// Async Request is meant to add proper error to asynchronous requests.
     /// This is meant as a compromise between Unity's coroutine system and async/await 
     /// </summary>
     public interface AsyncRequest : IEnumerator
@@ -15,6 +13,9 @@ namespace Com.Duffy
         bool IsFaulted { get; }
     }
 
+    /// <summary>
+    /// Adds a typed result to AsyncRequest
+    /// </summary>
     public interface AsyncRequest<out T> : AsyncRequest
     {
         T Result { get; }
@@ -83,7 +84,7 @@ namespace Com.Duffy
 
                 if (_exception != null)
                 {
-                    Log.Exception(_exception);
+                    Debug.unityLogger.LogException(_exception);
                     break;
                 }
 

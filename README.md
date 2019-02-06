@@ -1,10 +1,11 @@
+ ```
                                         _   _                    _ _         
   _ __  _ __ __ _  __ _ _ __ ___   __ _| |_(_) ___   _   _ _ __ (_) |_ _   _ 
  | '_ \| '__/ _` |/ _` | '_ ` _ \ / _` | __| |/ __| | | | | '_ \| | __| | | |
  | |_) | | | (_| | (_| | | | | | | (_| | |_| | (__  | |_| | | | | | |_| |_| |
  | .__/|_|  \__,_|\__, |_| |_| |_|\__,_|\__|_|\___|  \__,_|_| |_|_|\__|\__, |
  |_|              |___/                                                |___/ 
-
+```
 This repository is a gathering of opinionated utilities meant to fill in the gaps left by the base Unity offering.
 
 The main design goal is to lean into the official Unity workflow.  We attempt to work within the Unity lifecycle instead of abandoning it and substituting our own.
@@ -28,14 +29,15 @@ DynamicRefTarget is a helper MonoBehaviour that will register and unregister a t
 
 These DynamicRefs are YieldInstructions that will wait until the dependency is fulfilled.
 
-```IEnumerator Start()
-    {
-    	//this will yield until _myReference has a value to return
-        yield return _myReference;
-
-        Log.Assert(_myReference.HasValue, "this will be ture");
-        
-        //The SomeType instance can be used now
-        _myReference.Value.SomeTypeMethod();
-    }
-}```
+```
+IEnumerator Start()
+{
+	//this will yield until _myReference has a value to return
+    yield return _myReference;
+    
+    Log.Assert(_myReference.HasValue, "this will be ture");
+    
+    //The SomeType instance can be used now
+    _myReference.Value.SomeTypeMethod();
+}
+```

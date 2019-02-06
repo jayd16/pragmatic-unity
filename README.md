@@ -91,9 +91,10 @@ Example DataBinding Markup
 
 Here we can see two InputTexts bound to the same data through the generated DataBinding code.  
 Notice that:
- -Each InputText has the <BindingId>DataBinder Behavior (In this case BoundStringDataBinder).
- -The InputText onEdit event is wired to the DataBinder.Set() method
- -The DataBinder.OnGet event is wired to the InputText.text field
+
+ - Each InputText has the <BindingId>DataBinder Behavior (In this case BoundStringDataBinder).
+ - The InputText onEdit event is wired to the DataBinder.Set() method
+ - The DataBinder.OnGet event is wired to the InputText.text field
 
  ![Bound Input Text Exmaple][bound_input_text_gif]
 

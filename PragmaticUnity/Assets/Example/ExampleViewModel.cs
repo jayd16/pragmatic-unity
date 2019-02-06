@@ -3,7 +3,7 @@ using System.Collections;
 using Com.Duffy;
 using UnityEngine;
 
-public class ExampleViewModel : MonoBehaviour
+public partial class ExampleViewModel : MonoBehaviour
 {
     #region Simple Async Getter/Setter Example
 
@@ -54,7 +54,24 @@ public class ExampleViewModel : MonoBehaviour
         yield return null;
         throw new Exception("example error");
     }
-    
 
     #endregion
+
+    [DataBinding("BoundString")] public event Action OnStringUpdated = () => { };
+
+    private AsyncRequest<string> _cachedBoundStringExample = new SimpleAsyncRequest<string>("default");
+
+    [DataBinding("BoundString")]
+    public AsyncRequest SetString(string val)
+    {
+        _cachedBoundStringExample = new SimpleAsyncRequest<string>(val);
+        OnStringUpdated();
+        return _cachedBoundStringExample;
+    }
+
+    [DataBinding("BoundString")]
+    public AsyncRequest<string> GetString()
+    {
+        return _cachedBoundStringExample;
+    }
 }

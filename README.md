@@ -61,3 +61,30 @@ IEnumerator Start()
 	_myReference.Value.SomeTypeMethod();
 }
 ```
+
+## Data Binding
+
+Code gen to facilitate auto generated data binding behaviors.  This allows for MVVM style reactive data binding.
+
+A view model behavior can mark up setter and getter methods, and invalidation events to have binding behaviors generated.  These binding behaviors have type properly types UnityEvents that can be used to build type safe but loosely coupled interactions between the view and the view model.
+
+Example DataBinding Markup
+```
+    [DataBinding("SomeBindingId")] public event Action OnStringUpdated = () => { };
+
+    private AsyncRequest<string> _cachedBoundStringExample = new SimpleAsyncRequest<string>("default");
+
+    [DataBinding("SomeBindingId")]
+    public AsyncRequest SetString(string val)
+    {
+        _cachedBoundStringExample = new SimpleAsyncRequest<string>(val);
+        OnStringUpdated();
+        return _cachedBoundStringExample;
+    }
+
+    [DataBinding("SomeBindingId")]
+    public AsyncRequest<string> GetString()
+    {
+        return _cachedBoundStringExample;
+    }
+```

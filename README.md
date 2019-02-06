@@ -29,7 +29,6 @@ public AsyncRequest<int> ExampleGetInt()
 //example yielding coroutine
 private IEnumerator GetInt(Action<int> result)
 {
-
     yield return new WaitForSeconds(1);
     result(123);
 }
